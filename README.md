@@ -1,24 +1,37 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+A spike of Rails 5.2 Active Storage using direct upload via Javascript.
 
-Things you may want to cover:
+Loosely based on a [Martian Chronicles post](https://evilmartians.com/chronicles/rails-5-2-active-storage-and-beyond).
 
-* Ruby version
+Once cloned, it shouldn't require much setup, just the usual to get the app running:
 
-* System dependencies
+```
+bundle
+rake db:migrate
+```
 
-* Configuration
+To connect with your S3 bucket, you'll need to set your credentials:
 
-* Database creation
+`EDITOR="vim" rails credentials:edit`
 
-* Database initialization
+Also set the bucket name in `config/storage.yml`.
 
-* How to run the test suite
+You'll need to set CORS on the S3 bucket. Here's what all the tutorials do:
 
-* Services (job queues, cache servers, search engines, etc.)
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<CORSConfiguration xmlns="http://s3.amazonaws.com/doc/2006-03-01/">
+<CORSRule>
+  <AllowedOrigin>*</AllowedOrigin>
+  <AllowedMethod>GET</AllowedMethod>
+  <AllowedMethod>POST</AllowedMethod>
+  <AllowedMethod>PUT</AllowedMethod>
+  <AllowedMethod>DELETE</AllowedMethod>
+  <MaxAgeSeconds>3000</MaxAgeSeconds>
+  <AllowedHeader>*</AllowedHeader>
+</CORSRule>
+</CORSConfiguration>
+```
 
-* Deployment instructions
-
-* ...
+Don't do that for a bucket that you care about, or you may find yourself reacquainted with your P45.
